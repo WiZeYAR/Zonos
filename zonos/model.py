@@ -384,7 +384,7 @@ class Zonos(nn.Module):
         # Once the first sentence is ready, we'll use it's codes as audio_prefix_codes for all the next sentences
         for cond_dict in cond_dicts_generator:
             # Prepend the conditioning dictionary text with the previous sentence text
-            curr_text = cond_dict["text"]
+            curr_text = cond_dict["espeak"][0][0]  # espeak is ([texts], [languages])
             updated_cond_dict = {**cond_dict, "text": audio_prefix_text + curr_text + whitespace}
 
             prefix_conditioning = self.prepare_conditioning(make_cond_dict(**updated_cond_dict))
